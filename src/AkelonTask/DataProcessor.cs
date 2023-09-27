@@ -19,7 +19,7 @@ namespace AkelonTask
         }
 
         //2. По наименованию товара выводить информацию о клиентах, заказавших этот товар, с указанием информации по количеству товара, цене и дате заказа.
-        public void FindClientsInfoByProductName(string productName)
+        public void FindClientsInfoByProductName(string? productName)
         {
             var product = FindProductByName(productName);
             var clientsRequests = FindClientsByProductCode(product.Code);
@@ -29,7 +29,7 @@ namespace AkelonTask
             clients.ForEach(client => Console.WriteLine($"ФИО:{client.ClientName}, организация: {client.OrganizationName}, адрес: {client.Address}, количество заказанного товара: {clientsRequests.FirstOrDefault(cr => cr.ClientCode == client.Code).Amount}"));
         }
 
-        private Product FindProductByName(string productName)
+        private Product FindProductByName(string? productName)
         {
             var product = new Product();
             using (var workbook = new XLWorkbook(_filePath))
@@ -146,7 +146,7 @@ namespace AkelonTask
                 return clients;
             }
         }
-        public void SetContactName(string orgName, string newContactName)
+        public void SetContactName(string? orgName, string? newContactName)
         {
 
             using (var workbook = new XLWorkbook(_filePath))

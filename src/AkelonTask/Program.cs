@@ -14,12 +14,12 @@ namespace AkelonTask
 
     internal class Program
     {
-        static DataProcessor dp = null;
+        static DataProcessor? dp;
         static void Main(string[] args)
         {
             Console.WriteLine("Введите путь к файлу с данными:");
-            string filePath = Console.ReadLine();
-            dp = new DataProcessor(filePath);
+            string? filePath = Console.ReadLine();
+            dp = new DataProcessor(filePath ?? AppDomain.CurrentDomain.BaseDirectory + "\\data.xlsx");
 
             ShowMenu();
 
@@ -36,7 +36,7 @@ namespace AkelonTask
                 case 1:
                     {
                         Console.WriteLine("Введите наименование интересующего товара: ");
-                        string productName = Console.ReadLine();
+                        string? productName = Console.ReadLine();
                         dp.FindClientsInfoByProductName(productName);
                         Console.WriteLine("Для продолжения нажмите любую клавишу..");
 
