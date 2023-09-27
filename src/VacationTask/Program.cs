@@ -31,27 +31,58 @@ namespace VacationTask
             var vacations = DistributeVacations(employees);
             foreach (var employee in vacations)
             {
-                Console.WriteLine($"Сотрудник: {employee.Name} имееет такие дни отпуска: {string.Join(",", employee.VacationDays)}");
+                Console.WriteLine($"Сотрудник: {employee.Name} имееет такие дни отпуска: \n{string.Join("\n", employee.VacationDays)}\n");
             }
 
         }
         static List<Employee> DistributeVacations(List<Employee> employees)
         {
             var vacations = employees;
-            foreach(var employee in employees)
+            foreach (var employee in employees)
             {
                 var vacationDates = new List<DateTime>();
                 var randomDateGenerator = new Random();
 
                 while (employee.RemainingVacationDays > 0)
                 {
+                    var startVacationDate = GenerateRandomVacationDate(randomDateGenerator); // генерируем радномную дату крутым генератором
+                    var endVacationDate = new DateTime(DateTime.Now.Year, 12, 31); // максимально возможный конец отпуска
+
+                    var vacationLength = GenerateRandomVacationLength(startVacationDate); // по дате начала, а вдруг повезет?
+
+                    if (employee.RemainingVacationDays < 7)
+                        vacationLength = employee.RemainingVacationDays;
+
+                    endVacationDate = startVacationDate.AddDays(vacationLength);
+
+                    if (!employee.VacationDays.Any(date => date >= startVacationDate && date <= endVacationDate))
+                    {
+                        if (!employee.VacationDays.Any(date => date.AddDays(3) >= startVacationDate && date.AddDays(3) <= endVacationDate))
+                        {
+
+                            if (!employee.VacationDays.Any(date => date.AddMonths(1) >= startVacationDate && date.AddMonths(-1) <= endVacationDate
+                                                        || date.AddMonths(-1) <= endVacationDate && date.AddMonths(1) >= startVacationDate))
+                            {
+                                for (var day = startVacationDate; day < endVacationDate; day = day.AddDays(1))
+                                {
+                                    employee.VacationDays.Add(day);
+                                }
+
+                                employee.RemainingVacationDays -= vacationLength;
+                            }
+                        }
+                    }
 
                 }
-
-
             }
             return vacations;
         }
+
+        static int GenerateRandomVacationLength(DateTime startDate)
+        {
+            return startDate.DayOfWeek == DayOfWeek.Monday ? 14 : 7; // просто рандомный генератор отпуска))
+        }
+
         static DateTime GenerateRandomVacationDate(Random randomDateGenerator)
         {
             DateTime startYearDate = new DateTime(DateTime.Now.Year, 1, 1);
