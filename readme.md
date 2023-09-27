@@ -7,3 +7,4 @@
 Реализация задания с парсингом xlsx файла находится в файлах [Program.cs](/src/AkelonTask/Program.cs) и 
 [DataProcessor.cs](/src/AkelonTask/DataProcessor.cs)
 
+Реализация задания с отпусками сотрудников находится в поддиректории [VacationTask](/src/VacationTask/)
