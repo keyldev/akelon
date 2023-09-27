@@ -4,7 +4,27 @@
     {
         static void Main(string[] args)
         {
-            List<Employee> employees = new List<Employee>();
+            List<Employee> employees = new List<Employee>()
+            {
+                new Employee()
+                {
+                    Name = "Иванов Иван",
+                    VacationDays = new List<DateTime>(),
+                    
+                },
+                new Employee()
+                {
+                    Name = "Сидоров Сидор",
+                    VacationDays = new List<DateTime>(),
+                    RemainingVacationDays = 32 // у Сидра случились переработки
+                },
+                new Employee()
+                {
+                    Name = "Петров Петр",
+                    VacationDays = new List<DateTime>(),
+                    
+                }
+            };
 
 
 
