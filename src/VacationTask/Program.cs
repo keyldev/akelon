@@ -80,7 +80,7 @@ namespace VacationTask
 
         static int GenerateRandomVacationLength(DateTime startDate)
         {
-            return startDate.DayOfWeek == DayOfWeek.Monday ? 14 : 7; // просто рандомный генератор отпуска))
+            return startDate.DayOfWeek == DayOfWeek.Monday ? 14 : 7; // просто рандомный генератор отпуска)) в планах добавить проверку на месяц... вдруг в июле можно получить отпуск аж на 28 дней..
         }
 
         static DateTime GenerateRandomVacationDate(Random randomDateGenerator)
