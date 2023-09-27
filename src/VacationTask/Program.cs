@@ -10,7 +10,7 @@
                 {
                     Name = "Иванов Иван",
                     VacationDays = new List<DateTime>(),
-                    
+
                 },
                 new Employee()
                 {
@@ -22,12 +22,24 @@
                 {
                     Name = "Петров Петр",
                     VacationDays = new List<DateTime>(),
-                    
+
                 }
             };
 
+            var vacations = DistributeVacations(employees);
+            foreach (var employee in vacations)
+            {
+                Console.WriteLine($"Сотрудник: {employee.Name} имееет такие дни отпуска: {string.Join(",", employee.VacationDays)}");
+            }
+
+        }
+        static List<Employee> DistributeVacations(List<Employee> employees)
+        {
+            var vacations = new List<Employee>();
 
 
+
+            return vacations;
         }
 
         static bool IsWeekend(DateTime date)
