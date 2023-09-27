@@ -15,7 +15,7 @@ namespace AkelonTask
 
         public DataProcessor(string filePath)
         {
-            this._filePath = filePath;
+            this._filePath = File.Exists(filePath) ? filePath: throw new FileNotFoundException("Файл с данными не найден.");
         }
 
         //2. По наименованию товара выводить информацию о клиентах, заказавших этот товар, с указанием информации по количеству товара, цене и дате заказа.

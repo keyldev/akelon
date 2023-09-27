@@ -38,10 +38,7 @@ namespace AkelonTask
                         Console.WriteLine("Введите наименование интересующего товара: ");
                         string? productName = Console.ReadLine();
                         dp.FindClientsInfoByProductName(productName);
-                        Console.WriteLine("Для продолжения нажмите любую клавишу..");
 
-                        Console.ReadKey();
-                        ShowMenu();
                         break;
                     }
                 case 2:
@@ -53,10 +50,7 @@ namespace AkelonTask
                         var newName = Console.ReadLine();
 
                         dp.SetContactName(orgzName, newName);
-                        Console.WriteLine("Для продолжения нажмите любую клавишу..");
 
-                        Console.ReadKey();
-                        ShowMenu();
                         break;
                     }
                 case 3:
@@ -67,11 +61,7 @@ namespace AkelonTask
                         int month = Convert.ToInt32(Console.ReadLine());
 
                         dp.FindGoldenClient(year, month);
-                        Console.WriteLine("Для продолжения нажмите любую клавишу..");
 
-                        Console.ReadKey();
-
-                        ShowMenu();
                         break;
                     }
                 case 4:
@@ -81,13 +71,18 @@ namespace AkelonTask
                     }
                 default:
                     {
-                        Console.WriteLine("Для продолжения нажмите любую клавишу..");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Ошибка. Введенного вами кода не существует..\nДля продолжения нажмите любую клавишу.");
+                        Console.ForegroundColor = ConsoleColor.White;
 
                         Console.ReadKey();
                         ShowMenu();
                         break;
                     }
             }
+            Console.WriteLine("\nДля продолжения нажмите любую клавишу..");
+            Console.ReadKey();
+            ShowMenu();
         }
     }
 }
