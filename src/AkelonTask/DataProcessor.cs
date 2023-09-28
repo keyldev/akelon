@@ -207,8 +207,8 @@ namespace AkelonTask
             }
             var clients = GetClientsInfo(requests);
             var client = clients.FirstOrDefault(c => c.Code == requests.OrderByDescending(c => c.Amount).First().ClientCode);
-
-            Console.WriteLine($"Золотой клиент найден. ID: {client?.Code}. ФИО: {client?.ClientName}");
+            string message = (client?.Code == null? "не найден." : $"найден. ФИО: {client?.ClientName}");
+            Console.WriteLine($"Золотой клиент {message}");
         }
         private int GetColumnIndex(IXLWorksheet worksheet, string columnName)
         {
