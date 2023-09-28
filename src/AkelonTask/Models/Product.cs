@@ -11,8 +11,8 @@ namespace AkelonTask.Models
 
         public int? Code { get; set; }
         public string? Name { get; set; }
-        public string? UnitOfMeasurement { get; set; }
-        public double? Price { get; set; }
+        public string? UnitOfMeasurement { get; set; } = "не указано";
+        public double? Price { get; set; } = 0;
 
     }
 }

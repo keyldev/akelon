@@ -25,7 +25,7 @@ namespace AkelonTask
             var clientsRequests = FindClientsByProductCode(product.Code);
             var clients = GetClientsInfo(clientsRequests);
 
-            Console.WriteLine($"Наименование товара - {productName}, цена - {product.Price}rub. за {product.UnitOfMeasurement}\n");
+            Console.WriteLine($"Наименование товара - {productName}, цена - {product.Price}rub. единица измерения {product.UnitOfMeasurement}\n");
             clients.ForEach(client => Console.WriteLine($"ФИО:{client.ClientName}, организация: {client.OrganizationName}, адрес: {client.Address}, количество заказанного товара: {clientsRequests.FirstOrDefault(cr => cr.ClientCode == client.Code).Amount}"));
         }
 
@@ -41,7 +41,7 @@ namespace AkelonTask
                 int productNameIndex = GetColumnIndex(productsWorksheet, "Наименование");
                 int unitOfMeasureIndex = GetColumnIndex(productsWorksheet, "Ед. измерения");
                 int priceIndex = GetColumnIndex(productsWorksheet, "Цена товара за единицу");
-
+                var isProductFound = false;
                 foreach (var row in rows)
                 {
                     if (row.Cell(productNameIndex).Value.ToString() == productName)
@@ -56,13 +56,19 @@ namespace AkelonTask
                         product.Price = Convert.ToDouble(price);
                         product.Name = productName;
 
-
+                        
                         #region DEBUG_INFO
                         Debug.WriteLine($"Код товара: {product.Code}.Наименование: {productName}. Единица измерения: {unitOfMeasure}. Цена за единицу товара: {price}");
                         Debug.WriteLine($"");
                         #endregion
+                        isProductFound = true;
+                        break;
 
                     }
+                }
+                if (!isProductFound)
+                {
+                    Console.WriteLine("Товара с заданным именем не существует..");
                 }
                 return product;
 
@@ -159,15 +165,19 @@ namespace AkelonTask
                 var clientAddressIndex = GetColumnIndex(clientWorksheet, "Адрес");
                 var clientContactNameIndex = GetColumnIndex(clientWorksheet, "Контактное лицо (ФИО)");
                 Debug.WriteLine($"Поиск информации о клиентах...");
+
+                bool isOrgFound = false;
+
                 foreach (var row in clientRows)
                 {
                     if (row.Cell(clientOrgNameIndex).Value.ToString().Equals(orgName))
                     {
                         row.Cell(clientContactNameIndex).Value = newContactName;
-
-                        Console.WriteLine($"ФИО нового контактного лица для {orgName} успешно заменено на {newContactName}");
+                        isOrgFound = true;
                     }
                 }
+                string message = "Смена имени прошла" + (isOrgFound ? "успешно." : "неуспешно..");
+                Console.WriteLine($"{message}");
                 workbook.Save();
             }
         }
